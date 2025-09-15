@@ -159,12 +159,13 @@ EOF
 
 # =====Code Server=====
 
+ARG TARGETARCH
 # Install code-server
 # Ref: https://coder.com/docs/code-server/install#debian-ubuntu
 RUN CODE_SERVER_VERSION=4.100.3 \
-    && curl -fOL https://github.com/coder/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server_${CODE_SERVER_VERSION}_amd64.deb \
-    && dpkg -i code-server_${CODE_SERVER_VERSION}_amd64.deb \
-    && rm code-server_${CODE_SERVER_VERSION}_amd64.deb
+    && curl -fOL https://github.com/coder/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server_${CODE_SERVER_VERSION}_${TARGETARCH}.deb \
+    && dpkg -i code-server_${CODE_SERVER_VERSION}_${TARGETARCH}.deb \
+    && rm code-server_${CODE_SERVER_VERSION}_${TARGETARCH}.deb
 
 # Configure supervisor to manage the code-server
 RUN cat <<EOF > /etc/supervisor/conf.d/code-server.conf
