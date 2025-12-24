@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
     iputils-ping \
     nano \
     net-tools \
-    netcat-traditional \
+    netcat-openbsd \
     ssh \
     tmux \
     tree \
