@@ -1,5 +1,11 @@
 FROM ubuntu:22.04
 
+# Common Codex Tools
+RUN apt-get update && apt-get install -y \
+    git \
+    jq \
+    ripgrep \
+    && rm -rf /var/lib/apt/lists/*
 # Install Codex CLI
 # Ref: https://developers.openai.com/codex/cli/
 RUN apt-get update && apt-get install -y \
