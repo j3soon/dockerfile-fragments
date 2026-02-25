@@ -8,7 +8,7 @@ docker run --rm -it codex
 # or persist login across containers
 mkdir -p ~/docker/.codex
 docker run --rm -it --network=host \
-  -v ~/docker/.codex:/root/.codex \
+  -v ~/docker/.codex/:/root/.codex \
   codex
 ```
 

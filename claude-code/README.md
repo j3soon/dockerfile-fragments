@@ -6,9 +6,10 @@ Build and run the container:
 docker build -t claude-code .
 docker run --rm -it claude-code
 # or persist login across containers
+touch ~/docker/.claude.json
 mkdir -p ~/docker/.claude
 docker run --rm -it --network=host \
-  -v ~/docker/.claude:/root/.claude \
+  -v ~/docker/.claude/:/root/.claude \
   -v ~/docker/.claude.json:/root/.claude.json \
   claude-code
 ```
