@@ -11,8 +11,11 @@ mkdir -p ~/docker/.claude
 docker run --rm -it --network=host \
   -v ~/docker/.claude/:/root/.claude \
   -v ~/docker/.claude.json:/root/.claude.json \
+  -v $(pwd):/workspace \
   claude-code
 ```
+
+> Note: the `--network=host` flag can be removed if you are using device code login. The `-v $(pwd):/workspace` flag is optional but allows you to access your current directory from within the container, which can be useful for working with local files.
 
 In the container, run:
 
