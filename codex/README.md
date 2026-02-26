@@ -5,15 +5,19 @@ Build and run the container:
 ```sh
 docker build -t codex .
 docker run --rm -it codex
-# or persist login across containers
+```
+
+Or persist login across containers:
+
+```sh
 mkdir -p ~/docker/.codex
-docker run --rm -it --network=host \
+docker run --rm -it --network=host -w /workspace \
   -v ~/docker/.codex/:/root/.codex \
   -v $(pwd):/workspace \
   codex
 ```
 
-> Note: the `--network=host` flag can be removed if you are using device code login. The `-v $(pwd):/workspace` flag is optional but allows you to access your current directory from within the container, which can be useful for working with local files.
+> Note: the `--network=host` flag can be removed if you are using device code login. The `-v $(pwd):/workspace` flag is optional but allows you to access your current directory from within the container, which can be useful for working with local files. The `-w /workspace` flag is also optional and starts you in that mounted directory.
 
 In the container, run:
 

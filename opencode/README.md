@@ -5,17 +5,21 @@ Build and run the container:
 ```sh
 docker build -t opencode .
 docker run --rm -it opencode
-# or persist login/config across containers
+```
+
+Or persist login/config across containers:
+
+```sh
 mkdir -p ~/docker/opencode/.config/opencode
 mkdir -p ~/docker/opencode/.local/share/opencode
-docker run --rm -it --network=host \
+docker run --rm -it --network=host -w /workspace \
   -v ~/docker/opencode/.config/opencode:/root/.config/opencode \
   -v ~/docker/opencode/.local/share/opencode:/root/.local/share/opencode \
   -v $(pwd):/workspace \
   opencode
 ```
 
-> Note: the `--network=host` flag can be removed if you do not need host networking. The `-v $(pwd):/workspace` flag is optional but allows you to access your current directory from within the container, which can be useful for working with local files.
+> Note: the `--network=host` flag can be removed if you do not need host networking. The `-v $(pwd):/workspace` flag is optional but allows you to access your current directory from within the container, which can be useful for working with local files. The `-w /workspace` flag is also optional and starts you in that mounted directory.
 
 In the container, run:
 
