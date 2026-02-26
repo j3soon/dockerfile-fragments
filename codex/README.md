@@ -26,3 +26,12 @@ or with with yolo mode if you know what you're doing:
 ```sh
 codex --yolo
 ```
+
+References:
+
+- [Codex CLI](https://developers.openai.com/codex/cli)
+- [Authentication](https://developers.openai.com/codex/auth)
+- [Codex overview](https://openai.com/codex)
+- [Config basics](https://developers.openai.com/codex/config-basic/)
+- [Security](https://developers.openai.com/codex/security/)
+- [Codex Source Code on GitHub](https://github.com/openai/codex)

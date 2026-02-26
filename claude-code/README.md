@@ -28,3 +28,8 @@ or with with skip permissions mode if you know what you're doing:
 ```sh
 claude --dangerously-skip-permissions
 ```
+
+References:
+
+- [Set up Claude Code](https://code.claude.com/docs/en/setup)
+- [Claude Code settings](https://code.claude.com/docs/en/settings)
