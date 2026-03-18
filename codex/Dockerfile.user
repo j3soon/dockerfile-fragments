@@ -1,0 +1,33 @@
+FROM ubuntu:22.04
+
+ARG USER_UID=1000
+
+# Create a default non-root user and allow passwordless sudo for any user.
+RUN apt-get update && apt-get install -y \
+    sudo \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --shell /bin/bash --uid "${USER_UID}" codex \
+    && echo 'ALL ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nopasswd-all \
+    && chmod 0440 /etc/sudoers.d/nopasswd-all
+
+USER codex
+WORKDIR /home/codex
+
+# Common Codex Tools
+RUN sudo apt-get update && sudo apt-get install -y \
+    git \
+    jq \
+    ripgrep \
+    && sudo rm -rf /var/lib/apt/lists/*
+# Install Codex CLI
+# Ref: https://developers.openai.com/codex/cli/
+RUN sudo apt-get update && sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    && sudo rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | sudo bash -
+RUN sudo apt-get update && sudo apt-get install -y \
+    nodejs \
+    && sudo rm -rf /var/lib/apt/lists/*
+RUN sudo npm install -g @openai/codex
