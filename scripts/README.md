@@ -2,7 +2,7 @@
 
 ## Check `codex` and optionally rebuild every 15 minutes
 
-This script checks both local Docker images, `codex` and `codex-user`, against the latest published `@openai/codex` package.
+This script checks local Docker images `codex` and `codex-user`, and also checks host `codex` if it is installed. If versions do not match the latest published `@openai/codex` package, it rebuilds the images and upgrades host `codex`.
 
 Run it manually:
 
