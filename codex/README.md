@@ -7,7 +7,7 @@ docker build -t codex .
 docker run --rm -it codex
 ```
 
-Or persist login across containers:
+Or persist login/config across containers:
 
 ```sh
 mkdir -p ~/docker/.codex
@@ -17,11 +17,11 @@ docker run --rm -it --network=host -w /workspace \
   codex
 ```
 
-> Note: the `--network=host` flag can be removed if you are using device code login. The `-v $(pwd):/workspace` flag is optional but allows you to access your current directory from within the container, which can be useful for working with local files. The `-w /workspace` flag is also optional and starts you in that mounted directory.
+> Note: the `--network=host` flag can be removed if you are using device code login. The `-v $(pwd):/workspace` flag is optional but allows you to access your current directory from within the container, which can be useful for local files. The `-w /workspace` flag is also optional and starts you in that mounted directory.
 
 ## Non-root Variant
 
-If you want the container to start as a non-root user, use `Dockerfile.user` instead. It creates a `codex` user with UID `USER_UID` (default: `1000`) and enables passwordless `sudo`.
+If you want the container to start as a non-root user, use `Dockerfile.user` instead. It creates a `codex` user with UID `USER_UID` (default: `1000`) and grants password‑less sudo.
 
 Build it with your host UID:
 
@@ -41,9 +41,8 @@ docker run --rm -it --network=host -w /workspace \
   codex-user
 ```
 
-> This variant is useful when you want files created in the mounted workspace to match your host user ID.
->
-> If you hit permission errors on the mounted config directory, fix its ownership on the host first:
+> This variant ensures files created in the mounted workspace match your host user ID.
+> If you hit permission errors on the mounted config directories, fix its ownership on the host first:
 >
 > ```sh
 > chown -R "$(id -u):$(id -g)" ~/docker/.codex

@@ -1,0 +1,30 @@
+FROM ubuntu:22.04
+
+ARG USER_UID=1000
+
+# Create a default non-root user and allow passwordless sudo for any user.
+RUN apt-get update && apt-get install -y \
+    sudo \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --shell /bin/bash --uid "${USER_UID}" opencode \
+    && echo 'ALL ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nopasswd-all \
+    && chmod 0440 /etc/sudoers.d/nopasswd-all
+
+USER opencode
+WORKDIR /home/opencode
+
+# Install common tools
+RUN sudo apt-get update && sudo apt-get install -y \
+    git \
+    jq \
+    ripgrep \
+    && sudo rm -rf /var/lib/apt/lists/*
+# Install dependencies
+RUN sudo apt-get update && sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    && sudo rm -rf /var/lib/apt/lists/*
+
+# Install OpenCode CLI
+# Ref: https://opencode.ai/
+RUN sudo curl -fsSL https://opencode.ai/install | sudo bash
