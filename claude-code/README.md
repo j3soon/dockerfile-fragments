@@ -30,7 +30,9 @@ claude --version
 or with with skip permissions mode if you know what you're doing:
 
 ```sh
-claude --dangerously-skip-permissions
+claude --allow-dangerously-skip-permissions --dangerously-skip-permissions
+# or shortcut alias defined in the Dockerfile
+claude-yolo
 ```
 
 References:
