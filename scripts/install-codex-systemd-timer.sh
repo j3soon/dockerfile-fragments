@@ -15,7 +15,7 @@ chmod +x "${RUN_SCRIPT}"
 
 cat > "${SERVICE_PATH}" <<EOF
 [Unit]
-Description=Rebuild codex Docker images if versions drift
+Description=Rebuild Codex Docker images if versions drift
 Wants=network-online.target
 After=network-online.target
 

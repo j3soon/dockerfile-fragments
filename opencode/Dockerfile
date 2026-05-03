@@ -14,3 +14,4 @@ RUN apt-get update && apt-get install -y \
 # Install OpenCode CLI
 # Ref: https://opencode.ai/
 RUN curl -fsSL https://opencode.ai/install | bash
+ENV PATH="/root/.opencode/bin:${PATH}"

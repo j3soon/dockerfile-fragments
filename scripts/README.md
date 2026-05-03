@@ -13,7 +13,7 @@ scripts/rebuild-codex-docker.sh
 Install the user timer:
 
 ```sh
-scripts/install-systemd-timer.sh
+scripts/install-codex-systemd-timer.sh
 ```
 
 View timer status:
@@ -32,4 +32,38 @@ Follow service logs:
 
 ```sh
 journalctl --user -fu rebuild-codex-docker.service
+```
+
+## Check `opencode` and optionally rebuild every 15 minutes
+
+This script checks local Docker images `opencode` and `opencode-user`. If versions do not match the latest published OpenCode release, it rebuilds the images.
+
+Run it manually:
+
+```sh
+scripts/rebuild-opencode-docker.sh
+```
+
+Install the user timer:
+
+```sh
+scripts/install-opencode-systemd-timer.sh
+```
+
+View timer status:
+
+```sh
+systemctl --user status rebuild-opencode-docker.timer
+```
+
+View service logs:
+
+```sh
+journalctl --user -u rebuild-opencode-docker.service
+```
+
+Follow service logs:
+
+```sh
+journalctl --user -fu rebuild-opencode-docker.service
 ```
