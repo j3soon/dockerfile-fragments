@@ -10,8 +10,8 @@ docker run --rm -it claude-code
 Or persist login across containers:
 
 ```sh
-touch ~/docker/.claude.json
 mkdir -p ~/docker/.claude
+touch ~/docker/.claude.json
 docker run --rm -it --network=host -w /workspace \
   -v ~/docker/.claude/:/root/.claude \
   -v ~/docker/.claude.json:/root/.claude.json \
