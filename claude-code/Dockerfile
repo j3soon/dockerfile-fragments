@@ -1,5 +1,12 @@
 FROM ubuntu:22.04
 
+# Common Tools
+RUN apt-get update && apt-get install -y \
+    git \
+    jq \
+    ripgrep \
+    python3 \
+    && rm -rf /var/lib/apt/lists/*
 # Install dependencies and Claude Code CLI
 # Ref: https://code.claude.com/docs/en/setup
 RUN apt-get update && apt-get install -y \
