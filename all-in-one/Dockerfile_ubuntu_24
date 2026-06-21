@@ -210,8 +210,6 @@ RUN mkdir -p ~/.vnc && \
 # dbus-launch required on Ubuntu 24.04 for XFCE to start properly in VNC
 RUN cat <<'EOF' > ~/.vnc/xstartup
 #!/bin/sh
-unset SESSION_MANAGER
-unset DBUS_SESSION_BUS_ADDRESS
 exec dbus-launch --exit-with-session startxfce4
 EOF
 RUN chmod +x ~/.vnc/xstartup
