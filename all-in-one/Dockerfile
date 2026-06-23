@@ -102,7 +102,7 @@ RUN sed -i \
     /etc/ssh/sshd_config
 # Set environment variables
 # Ref: https://stackoverflow.com/a/34631891
-RUN env | egrep -v "^(HOME=|USER=|MAIL=|LC_ALL=|LS_COLORS=|LANG=|HOSTNAME=|PWD=|TERM=|SHLVL=|LANGUAGE=|_=)" >> /etc/environment
+RUN env | grep -Ev "^(HOME=|USER=|MAIL=|LC_ALL=|LS_COLORS=|LANG=|HOSTNAME=|PWD=|TERM=|SHLVL=|LANGUAGE=|_=)" >> /etc/environment
 # Configure supervisor to manage the SSH server
 RUN cat <<EOF > /etc/supervisor/conf.d/sshd.conf
 [program:sshd]
@@ -208,8 +208,7 @@ RUN mkdir -p ~/.vnc && \
 RUN if [ -z "${TIGERVNC_PASSWORD}" ]; then FLAG="-SecurityTypes None --I-KNOW-THIS-IS-INSECURE"; else FLAG=""; fi && \
 cat <<EOF > /etc/supervisor/conf.d/tigervnc.conf
 [program:tigervnc]
-command=/usr/bin/vncserver :0 -geometry 1920x1080 -depth 24 -localhost no ${FLAG}
-autorestart=false
+command=/usr/bin/vncserver -fg :0 -geometry 1920x1080 -depth 24 -localhost no ${FLAG}
 stderr_logfile=/var/log/tigervnc.err.log
 stdout_logfile=/var/log/tigervnc.out.log
 EOF
