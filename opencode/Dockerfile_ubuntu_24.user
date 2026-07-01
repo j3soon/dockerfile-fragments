@@ -29,7 +29,13 @@ RUN sudo apt-get update && sudo apt-get install -y \
 
 # Install OpenCode CLI
 # Ref: https://opencode.ai/
-RUN curl -fsSL https://opencode.ai/install | bash
+# This remote metadata changes when the OpenCode latest release advances, which
+# invalidates the install layer during normal Docker builds.
+ADD https://api.github.com/repos/anomalyco/opencode/releases/latest /tmp/opencode-latest-release.json
 ENV PATH="/home/opencode/.opencode/bin:${PATH}"
+RUN curl -fsSL https://opencode.ai/install | bash
+RUN opencode_version="$(opencode --version)" \
+    && test -n "$opencode_version" \
+    && echo "Installed OpenCode CLI: $opencode_version"
 RUN mkdir -p /home/opencode/.config/opencode
 RUN mkdir -p /home/opencode/.local/share/opencode

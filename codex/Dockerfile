@@ -17,4 +17,10 @@ RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
 RUN apt-get update && apt-get install -y \
     nodejs \
     && rm -rf /var/lib/apt/lists/*
+# This remote metadata changes when the npm latest tag advances, which
+# invalidates the install layer during normal Docker builds.
+ADD https://registry.npmjs.org/@openai%2Fcodex/latest /tmp/openai-codex-latest.json
 RUN npm install -g @openai/codex
+RUN codex_version="$(codex --version)" \
+    && test -n "$codex_version" \
+    && echo "Installed Codex CLI: $codex_version"
