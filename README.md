@@ -16,6 +16,7 @@ Each subdirectory provides a standalone `Dockerfile` together with a local `READ
 | [`vulkan`](vulkan) | Vulkan runtime utilities | Includes Vulkan tools and NVIDIA runtime configuration. |
 | [`openssh-server`](openssh-server) | SSH server container | Exposes an SSH daemon for remote shell access. |
 | [`tigervnc`](tigervnc) | TigerVNC desktop container | XFCE desktop with Firefox and VNC server. |
+| [`turbovnc`](turbovnc) | TurboVNC desktop container | XFCE desktop with Firefox and TurboVNC server. |
 | [`novnc`](novnc) | Browser-based VNC client | Connects to a VNC server through noVNC. |
 | [`code-server`](code-server) | Browser-based VS Code | Runs `code-server` behind a configurable password. |
 | [`jupyter-lab`](jupyter-lab) | JupyterLab server | Token-based notebook server. |
@@ -63,7 +64,7 @@ docker run --rm -it --gpus all \
 - Use [`common`](common) when you just want a minimal Ubuntu container with familiar terminal tools.
 - Use [`codex`](codex), [`claude-code`](claude-code), or [`opencode`](opencode) for containerized AI coding assistants.
 - Use [`code-server`](code-server) or [`jupyter-lab`](jupyter-lab) for browser-accessible development environments.
-- Use [`openssh-server`](openssh-server), [`tigervnc`](tigervnc), and [`novnc`](novnc) for remote access workflows.
+- Use [`openssh-server`](openssh-server), [`tigervnc`](tigervnc), [`turbovnc`](turbovnc), and [`novnc`](novnc) for remote access workflows.
 - Use [`x11`](x11), [`opengl`](opengl), and [`vulkan`](vulkan) for GUI and graphics-related container experiments.
 - Use [`all-in-one`](all-in-one) if you want one container that exposes several of the above services together.
 

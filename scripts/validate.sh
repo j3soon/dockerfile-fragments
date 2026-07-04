@@ -150,7 +150,7 @@ validate_fragment() {
         cleanup
         ;;
 
-    tigervnc)
+    tigervnc|turbovnc)
         start_container "$tag" -p 15900:5900 || return
         wait_tcp localhost 15900
         sleep 2  # allow XFCE to initialize
@@ -229,7 +229,7 @@ validate_fragment() {
     esac
 }
 
-ALL_FRAGMENTS="common x11 opengl vulkan openssh-server tigervnc novnc jupyter-lab code-server all-in-one claude-code codex codex-user opencode opencode-user"
+ALL_FRAGMENTS="common x11 opengl vulkan openssh-server tigervnc turbovnc novnc jupyter-lab code-server all-in-one claude-code codex codex-user opencode opencode-user"
 
 run_version() {
     local ver=$1
