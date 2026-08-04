@@ -38,3 +38,12 @@ Or you can specify the VNC server address: <http://localhost:6080/?host=localhos
 This assumes you have a VNC server running on `localhost:5900`.
 
 You can adjust the screen size using `Settings > Scaling Mode`. The `Clipboard` feature is also available when needed.
+
+## Hardware-accelerated OpenGL
+
+Run OpenGL applications through VirtualGL for NVIDIA GPU acceleration without host X11 or `/dev/dri` mounts:
+
+```sh
+DISPLAY=:0 vglrun -d egl glxinfo -B
+DISPLAY=:0 vglrun -d egl glxgears
+```

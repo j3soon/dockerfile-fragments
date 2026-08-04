@@ -13,6 +13,7 @@ Each subdirectory provides a standalone `Dockerfile` together with a local `READ
 | [`common`](common) | Common CLI tools | Includes utilities such as `git`, `tmux`, `vim`, `wget`, and `tree`. |
 | [`x11`](x11) | Minimal X11 client container | Useful for testing GUI forwarding from a container. |
 | [`opengl`](opengl) | OpenGL runtime utilities | NVIDIA-oriented GUI/OpenGL container. |
+| [`virtualgl`](virtualgl) | VirtualGL runtime utilities | GPU-accelerated OpenGL for container-local X11/VNC displays. |
 | [`vulkan`](vulkan) | Vulkan runtime utilities | Includes Vulkan tools and NVIDIA runtime configuration. |
 | [`openssh-server`](openssh-server) | SSH server container | Exposes an SSH daemon for remote shell access. |
 | [`tigervnc`](tigervnc) | TigerVNC desktop container | XFCE desktop with Firefox and VNC server. |
@@ -65,7 +66,7 @@ docker run --rm -it --gpus all \
 - Use [`codex`](codex), [`claude-code`](claude-code), or [`opencode`](opencode) for containerized AI coding assistants.
 - Use [`code-server`](code-server) or [`jupyter-lab`](jupyter-lab) for browser-accessible development environments.
 - Use [`openssh-server`](openssh-server), [`tigervnc`](tigervnc), [`turbovnc`](turbovnc), and [`novnc`](novnc) for remote access workflows.
-- Use [`x11`](x11), [`opengl`](opengl), and [`vulkan`](vulkan) for GUI and graphics-related container experiments.
+- Use [`x11`](x11), [`opengl`](opengl), [`virtualgl`](virtualgl), and [`vulkan`](vulkan) for GUI and graphics-related container experiments.
 - Use [`all-in-one`](all-in-one) if you want one container that exposes several of the above services together.
 
 ## Requirements
@@ -73,7 +74,7 @@ docker run --rm -it --gpus all \
 The exact requirements depend on the image you choose, but in practice you will typically need:
 
 - [Docker](https://docs.docker.com/get-started/get-docker/)
-- NVIDIA Container Toolkit for [`opengl`](opengl), [`vulkan`](vulkan), and typical [`all-in-one`](all-in-one) GPU usage
+- NVIDIA Container Toolkit for [`opengl`](opengl), [`virtualgl`](virtualgl), [`vulkan`](vulkan), and typical [`all-in-one`](all-in-one) GPU usage
 - X11 access on the host for [`x11`](x11), [`opengl`](opengl), and some local GUI workflows
 
 Some example commands in the per-image READMEs use `pwgen` to generate passwords. That tool is only needed if you want to follow those examples exactly.

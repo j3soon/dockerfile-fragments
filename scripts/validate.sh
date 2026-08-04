@@ -137,6 +137,15 @@ validate_fragment() {
             DISPLAY=:99 glxinfo -B 2>&1 | grep -m1 'OpenGL'"
         ;;
 
+    virtualgl)
+        run_check "vglrun EGL (GPU)" docker run --rm --gpus all "$tag" bash -c "
+            apt-get update -qq >/dev/null 2>&1 &&
+            apt-get install -y -qq xvfb >/dev/null 2>&1 &&
+            (Xvfb :99 -screen 0 800x600x24 >/dev/null 2>&1 &) &&
+            sleep 1 &&
+            DISPLAY=:99 vglrun -d egl glxinfo -B 2>&1 | grep -m1 'OpenGL renderer string: NVIDIA'"
+        ;;
+
     vulkan)
         # Requires NVIDIA GPU + container runtime
         run_check "NVIDIA_DRIVER_CAPABILITIES" bash -c "docker inspect $tag --format '{{range .Config.Env}}{{println .}}{{end}}' | grep -q '^NVIDIA_DRIVER_CAPABILITIES=all$' && echo all"
@@ -229,7 +238,7 @@ validate_fragment() {
     esac
 }
 
-ALL_FRAGMENTS="common x11 opengl vulkan openssh-server tigervnc turbovnc novnc jupyter-lab code-server all-in-one claude-code codex codex-user opencode opencode-user"
+ALL_FRAGMENTS="common x11 opengl virtualgl vulkan openssh-server tigervnc turbovnc novnc jupyter-lab code-server all-in-one claude-code codex codex-user opencode opencode-user"
 
 run_version() {
     local ver=$1
