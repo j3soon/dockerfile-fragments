@@ -72,6 +72,7 @@ get_frag_dir() {
     case $1 in
         codex-user)   echo "codex" ;;
         opencode-user) echo "opencode" ;;
+        pi-user)      echo "pi" ;;
         *)            echo "$1" ;;
     esac
 }
@@ -79,8 +80,8 @@ get_frag_dir() {
 get_dockerfile() {
     local name=$1 ver=$2
     case "${name}:${ver}" in
-        codex-user:22|opencode-user:22) echo "Dockerfile.user" ;;
-        codex-user:24|opencode-user:24) echo "Dockerfile_ubuntu_24.user" ;;
+        codex-user:22|opencode-user:22|pi-user:22) echo "Dockerfile.user" ;;
+        codex-user:24|opencode-user:24|pi-user:24) echo "Dockerfile_ubuntu_24.user" ;;
         *:22)                           echo "Dockerfile" ;;
         *:24)                           echo "Dockerfile_ubuntu_24" ;;
     esac
@@ -232,13 +233,17 @@ validate_fragment() {
         run_check "opencode" docker run --rm "$tag" opencode --version
         ;;
 
+    pi|pi-user)
+        run_check "pi" docker run --rm "$tag" pi --version
+        ;;
+
     *)
         fail "unknown fragment: ${name}"
         ;;
     esac
 }
 
-ALL_FRAGMENTS="common x11 opengl virtualgl vulkan openssh-server tigervnc turbovnc novnc jupyter-lab code-server all-in-one claude-code codex codex-user opencode opencode-user"
+ALL_FRAGMENTS="common x11 opengl virtualgl vulkan openssh-server tigervnc turbovnc novnc jupyter-lab code-server all-in-one claude-code codex codex-user opencode opencode-user pi pi-user"
 
 run_version() {
     local ver=$1

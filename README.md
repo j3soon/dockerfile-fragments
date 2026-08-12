@@ -24,6 +24,7 @@ Each subdirectory provides a standalone `Dockerfile` together with a local `READ
 | [`codex`](codex) | OpenAI Codex CLI container | Ubuntu-based Codex CLI environment with a few extra tools. |
 | [`claude-code`](claude-code) | Claude Code CLI container | Minimal container for Anthropic Claude Code. |
 | [`opencode`](opencode) | OpenCode CLI container | Minimal container for OpenCode. |
+| [`pi`](pi) | Pi Coding Agent container | Minimal container for the extensible Pi terminal coding agent. |
 | [`all-in-one`](all-in-one) | Combined remote dev environment | Merges common tools, GUI, VNC, SSH, code-server, and JupyterLab. |
 
 ## Quick Start
@@ -63,7 +64,7 @@ docker run --rm -it --gpus all \
 ## Choosing An Image
 
 - Use [`common`](common) when you just want a minimal Ubuntu container with familiar terminal tools.
-- Use [`codex`](codex), [`claude-code`](claude-code), or [`opencode`](opencode) for containerized AI coding assistants.
+- Use [`codex`](codex), [`claude-code`](claude-code), [`opencode`](opencode), or [`pi`](pi) for containerized AI coding assistants.
 - Use [`code-server`](code-server) or [`jupyter-lab`](jupyter-lab) for browser-accessible development environments.
 - Use [`openssh-server`](openssh-server), [`tigervnc`](tigervnc), [`turbovnc`](turbovnc), and [`novnc`](novnc) for remote access workflows.
 - Use [`x11`](x11), [`opengl`](opengl), [`virtualgl`](virtualgl), and [`vulkan`](vulkan) for GUI and graphics-related container experiments.
@@ -111,3 +112,4 @@ The individual Dockerfiles do not currently share a formal build system or templ
 - [OpenAI Codex CLI](https://developers.openai.com/codex/cli/)
 - [Claude Code](https://code.claude.com/docs/en/setup)
 - [OpenCode](https://opencode.ai/)
+- [Pi Coding Agent](https://pi.dev/)

@@ -1,0 +1,40 @@
+FROM ubuntu:22.04
+
+ARG USER_UID=1000
+
+# Create a default non-root user and allow passwordless sudo for any user.
+RUN apt-get update && apt-get install -y \
+    sudo \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --shell /bin/bash --uid "${USER_UID}" pi \
+    && echo 'ALL ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/nopasswd-all \
+    && chmod 0440 /etc/sudoers.d/nopasswd-all
+
+USER pi
+WORKDIR /home/pi
+
+# Common Pi Tools
+RUN sudo apt-get update && sudo apt-get install -y \
+    git \
+    jq \
+    ripgrep \
+    && sudo rm -rf /var/lib/apt/lists/*
+# Install Pi Coding Agent
+# Ref: https://pi.dev/docs/latest
+RUN sudo apt-get update && sudo apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    && sudo rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | sudo bash -
+RUN sudo apt-get update && sudo apt-get install -y \
+    nodejs \
+    && sudo rm -rf /var/lib/apt/lists/*
+# This remote metadata changes when the npm latest tag advances, which
+# invalidates the install layer during normal Docker builds.
+ADD https://registry.npmjs.org/@earendil-works%2Fpi-coding-agent/latest /tmp/pi-coding-agent-latest.json
+RUN sudo npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+RUN pi_version="$(pi --version)" \
+    && test -n "$pi_version" \
+    && echo "Installed Pi Coding Agent: $pi_version"
+RUN mkdir -p /home/pi/.pi/agent

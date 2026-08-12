@@ -68,6 +68,29 @@ Follow service logs:
 journalctl --user -fu rebuild-opencode-docker.service
 ```
 
+## Check `pi` and optionally rebuild
+
+This script checks local Docker images `pi` and `pi-user`. If their versions do not match the latest published `@earendil-works/pi-coding-agent` package, it rebuilds the images.
+
+Run it manually:
+
+```sh
+scripts/rebuild-pi-docker.sh
+```
+
+Install the user timer:
+
+```sh
+scripts/install-pi-systemd-timer.sh
+```
+
+View timer status or follow service logs:
+
+```sh
+systemctl --user status rebuild-pi-docker.timer
+journalctl --user -fu rebuild-pi-docker.service
+```
+
 ## Build and validate fragment images
 
 `validate.sh` builds a fragment image and runs service checks against it.
