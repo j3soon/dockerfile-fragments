@@ -12,6 +12,23 @@ if ! command -v docker >/dev/null 2>&1; then
   exit 1
 fi
 
+load_nvm() {
+  export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+
+  if [[ -s "${NVM_DIR}/nvm.sh" ]]; then
+    # shellcheck disable=SC1090
+    . "${NVM_DIR}/nvm.sh"
+
+    if command -v nvm >/dev/null 2>&1; then
+      nvm use default >/dev/null 2>&1 || true
+    fi
+  fi
+}
+
+# systemd user services do not run shell profiles, so an npm installed via
+# nvm is not on PATH by default.
+load_nvm
+
 if ! command -v npm >/dev/null 2>&1; then
   echo "npm is not installed or not in PATH" >&2
   exit 1
