@@ -111,6 +111,44 @@ If a gateway filters SDK user agents, add an explicit header after `apiKey`:
       },
 ```
 
+## Configuring Local Models
+
+Pi can be configured to use a local, self-hosted language model. Setup scripts for both supported topologies live in [j3soon/local-llm-notes/examples/basic-secure-api/scripts](https://github.com/j3soon/local-llm-notes/tree/main/examples/basic-secure-api/scripts).
+
+### Remote self-hosted server
+
+To point Pi at a self-hosted llama.cpp server (for example, one deployed with the [basic-secure-api example](https://github.com/j3soon/local-llm-notes/blob/main/examples/basic-secure-api/README.md)), run the interactive setup script inside the container:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/j3soon/local-llm-notes/refs/heads/main/examples/basic-secure-api/scripts/setup_pi.sh -o /tmp/setup_pi.sh
+chmod +x /tmp/setup_pi.sh
+/tmp/setup_pi.sh
+```
+
+The script prompts for a provider ID (default `llm-remote`), the server URL, and an API key, then adds an OpenAI-compatible provider to `~/.pi/agent/models.json` and sets it as the default provider and model in `~/.pi/agent/settings.json`. Start Pi as usual afterwards and it will use the configured model.
+
+### Offline container on the local Docker network
+
+You can also self-host the model separately and launch Pi in an offline container on the same internal Docker network. After following the local-only deployment in the [basic-secure-api example](https://github.com/j3soon/local-llm-notes/blob/main/examples/basic-secure-api/README.md), run the local setup script inside the container. It configures the `llm-local` provider to reach the model at `http://llama-cpp:37000/v1` without an API key:
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/j3soon/local-llm-notes/refs/heads/main/examples/basic-secure-api/scripts/setup_pi_local.sh -o /tmp/setup_pi_local.sh
+chmod +x /tmp/setup_pi_local.sh
+/tmp/setup_pi_local.sh
+```
+
+Then start Pi on the same internal Docker network:
+
+```sh
+mkdir -p ~/docker/pi/agent
+docker run --rm -it --network=local-llm-internal -w /workspace \
+  -v ~/docker/pi/agent:/root/.pi/agent \
+  -v "$(pwd)":/workspace \
+  pi
+```
+
+As a sanity check, ask the agent to fetch a web page. This should fail because `local-llm-internal` is an internal Docker network without outbound internet access.
+
 References:
 
 - [Pi](https://pi.dev/)
@@ -120,3 +158,4 @@ References:
 - [Custom models and OpenAI-compatible endpoints](https://pi.dev/docs/latest/models)
 - [Containerization and security](https://pi.dev/docs/latest/containerization)
 - [Pi source code on GitHub](https://github.com/earendil-works/pi)
+- [Local LLM notes: basic secure API](https://github.com/j3soon/local-llm-notes/blob/main/examples/basic-secure-api/README.md)

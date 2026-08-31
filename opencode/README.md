@@ -75,7 +75,11 @@ opencode run "Explain how closures work in JavaScript"
 
 ## Configuring Local Models
 
-OpenCode can be configured to use local language models. Inside the container you can download and run the official setup script:
+OpenCode can be configured to use a local, self-hosted language model. Setup scripts for both supported topologies live in [j3soon/local-llm-notes/examples/basic-secure-api/scripts](https://github.com/j3soon/local-llm-notes/tree/main/examples/basic-secure-api/scripts).
+
+### Remote self-hosted server
+
+To point OpenCode at a self-hosted llama.cpp server (for example, one deployed with the [basic-secure-api example](https://github.com/j3soon/local-llm-notes/blob/main/examples/basic-secure-api/README.md)), run the interactive setup script inside the container:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/j3soon/local-llm-notes/refs/heads/main/examples/basic-secure-api/scripts/setup_opencode.sh -o /tmp/setup_opencode.sh
@@ -83,12 +87,14 @@ chmod +x /tmp/setup_opencode.sh
 /tmp/setup_opencode.sh
 ```
 
-The script installs the necessary dependencies and sets the `OPENCODE_MODEL` environment variable to point to the local model. After running it, you can start OpenCode as usual and it will use the locally‑installed model.
+The script prompts for a provider ID (default `llm-remote`), the server URL, and an API key, then writes an OpenAI-compatible provider to `~/.config/opencode/opencode.json` and sets the chosen model as the default. Start OpenCode as usual afterwards and it will use the configured model.
 
-You can also self-host the model separately and launch OpenCode in an offline container on the same Docker network. For example, after following the local-only deployment in [j3soon/local-llm-notes/examples/basic-secure-api](https://github.com/j3soon/local-llm-notes/blob/main/examples/basic-secure-api/README.md), run the local OpenCode setup script:
+### Offline container on the local Docker network
+
+You can also self-host the model separately and launch OpenCode in an offline container on the same internal Docker network. After following the local-only deployment in the [basic-secure-api example](https://github.com/j3soon/local-llm-notes/blob/main/examples/basic-secure-api/README.md), run the local setup script inside the container. It configures the `llm-local` provider to reach the model at `http://llama-cpp:37000/v1` without an API key:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/j3soon/local-llm-notes/main/examples/basic-secure-api/scripts/setup_opencode_local.sh -o /tmp/setup_opencode_local.sh
+curl -fsSL https://raw.githubusercontent.com/j3soon/local-llm-notes/refs/heads/main/examples/basic-secure-api/scripts/setup_opencode_local.sh -o /tmp/setup_opencode_local.sh
 chmod +x /tmp/setup_opencode_local.sh
 /tmp/setup_opencode_local.sh
 ```
