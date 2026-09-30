@@ -41,5 +41,6 @@ RUN sudo npm install -g opencode-ai@latest
 RUN opencode_version="$(opencode --version)" \
     && test -n "$opencode_version" \
     && echo "Installed OpenCode CLI: $opencode_version"
+RUN echo 'alias op="opencode --auto"' >> /home/opencode/.bashrc
 RUN mkdir -p /home/opencode/.config/opencode
 RUN mkdir -p /home/opencode/.local/share/opencode

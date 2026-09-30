@@ -25,3 +25,4 @@ RUN npm install -g opencode-ai@latest
 RUN opencode_version="$(opencode --version)" \
     && test -n "$opencode_version" \
     && echo "Installed OpenCode CLI: $opencode_version"
+RUN echo 'alias op="opencode --auto"' >> /root/.bashrc

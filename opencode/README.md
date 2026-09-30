@@ -73,6 +73,8 @@ Or run non-interactive mode:
 opencode run "Explain how closures work in JavaScript"
 ```
 
+For an interactive Bash shell inside the container, `op` runs `opencode --auto`.
+
 ## Configuring Local Models
 
 OpenCode can be configured to use a local, self-hosted language model. Setup scripts for both supported topologies live in [j3soon/local-llm-notes/examples/basic-secure-api/scripts](https://github.com/j3soon/local-llm-notes/tree/main/examples/basic-secure-api/scripts).
