@@ -36,7 +36,7 @@ journalctl --user -fu rebuild-codex-docker.service
 
 ## Check `opencode` and optionally rebuild every 15 minutes
 
-This script checks local Docker images `opencode` and `opencode-user`. If versions do not match the latest published OpenCode release, it rebuilds the images.
+This script checks local Docker images `opencode` and `opencode-user`. If versions do not match the latest published `opencode-ai` npm package, it rebuilds the images.
 
 Run it manually:
 

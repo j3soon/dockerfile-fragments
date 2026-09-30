@@ -10,14 +10,18 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update && apt-get install -y \
     ca-certificates \
     curl \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
+RUN apt-get update && apt-get install -y \
+    nodejs \
     && rm -rf /var/lib/apt/lists/*
 # Install OpenCode CLI
 # Ref: https://opencode.ai/
-# This remote metadata changes when the OpenCode latest release advances, which
+# This remote metadata changes when the npm latest tag advances, which
 # invalidates the install layer during normal Docker builds.
-ADD https://api.github.com/repos/anomalyco/opencode/releases/latest /tmp/opencode-latest-release.json
-ENV PATH="/root/.opencode/bin:${PATH}"
-RUN curl -fsSL https://opencode.ai/install | bash
+ADD https://registry.npmjs.org/opencode-ai/latest /tmp/opencode-latest.json
+RUN npm install -g opencode-ai@latest
 RUN opencode_version="$(opencode --version)" \
     && test -n "$opencode_version" \
     && echo "Installed OpenCode CLI: $opencode_version"

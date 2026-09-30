@@ -21,8 +21,8 @@ latest_opencode_version() {
   local latest_version
 
   latest_version="$(
-    curl -fsSL https://api.github.com/repos/anomalyco/opencode/releases/latest \
-      | sed -n 's/.*"tag_name":[[:space:]]*"v\{0,1\}\([^"]*\)".*/\1/p' \
+    curl -fsSL https://registry.npmjs.org/opencode-ai/latest \
+      | sed -n 's/.*"version":[[:space:]]*"\([^"]*\)".*/\1/p' \
       | head -n 1
   )"
 
