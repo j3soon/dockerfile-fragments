@@ -25,4 +25,5 @@ RUN claude_version="$(claude --version)" \
     && echo "Installed Claude Code CLI: $claude_version"
 
 # Convenience alias for running Claude Code without permission prompts
-RUN echo 'alias claude-yolo="claude --allow-dangerously-skip-permissions --dangerously-skip-permissions"' >> /root/.bashrc
+RUN echo 'alias claude-yolo="claude --allow-dangerously-skip-permissions --dangerously-skip-permissions"' >> /root/.bashrc \
+    && echo 'alias cl="claude-yolo"' >> /root/.bashrc

@@ -33,6 +33,8 @@ or with with skip permissions mode if you know what you're doing:
 claude --allow-dangerously-skip-permissions --dangerously-skip-permissions
 # or shortcut alias defined in the Dockerfile
 claude-yolo
+# or use the short alias in an interactive Bash shell
+cl
 ```
 
 References:
