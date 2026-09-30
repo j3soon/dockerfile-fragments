@@ -9,33 +9,36 @@
   scripts keep Docker images current and run as systemd user timers.
   `validate.sh` builds a fragment image and runs service checks.
   Run it with `scripts/validate.sh [FRAGMENT] [VERSION]`.
-- `skills/`: reusable agent skills, including the `agent-init` bootstrap skill.
 - `artifacts/`: disposable output such as screenshots and generated reports.
-
-## Using This Repository
-- In a new repository, give an agent this repo's URL and ask it to run the
-  `agent-init` skill to initialize `AGENTS.md` and skills.
-- The root `AGENTS.md` doubles as the base file copied into new repositories.
-  Update it when durable guidance changes so new repos inherit the change.
 
 ## Shared Workflow
 - Keep edits scoped to the requested module and preserve existing patterns.
+- Run affected checks before finishing.
 - Preserve each file's staged or unstaged state. Do not stage, unstage, or
   commit changes unless explicitly asked.
 - Avoid trailing spaces and end files with a newline.
 - Store generated output and other disposable review output under the
   repository-root `artifacts/` directory. This directory is ignored by Git.
+- Record durable, general guidance in the nearest relevant `AGENTS.md`.
 - Use Conventional Commits for commit messages.
+- Keep commits focused on self-contained changes that can be understood,
+  validated, and reverted independently.
 - Never use a coding agent identity as the Git author, committer, or
-  co-author. Use the repository's configured human identity. If none is
-  available, ask the user instead of inventing one.
+  co-author. Check `git config user.name` and `git config user.email` and use
+  the configured human identity. If either is missing, ask the user.
 - For commits created by a coding agent, include a descriptive body that
   ends with a separate `by <Harness> (<Model>)` line, using the actual
-  harness and model names. For example, `by Codex (gpt-5.6-sol)` or `by
-  Claude Code (Opus 5)`.
+  harness and model names. Use the full canonical lowercase model slug for
+  Codex, such as `gpt-5.6-sol`. Never use a shortened family name such as
+  `GPT-6`. Verify the active model before committing if its slug is unclear.
+- Keep the body short and include a validation paragraph naming checks and
+  results before the attribution line. That plain line is the only agent
+  attribution. Do not add co-author trailers or session links after it.
 - Build multi-paragraph commit messages with separate `git commit -m`
   arguments. Do not embed escaped `\n` sequences because Git stores them
   literally instead of converting them to newlines.
+- After committing or rewriting a commit, inspect `git log -1 --format=fuller`
+  to confirm real paragraph breaks and the attribution as the final line.
 
 ## Comment and Documentation Style
 - Keep comments and documentation minimal, concise, yet informative.
