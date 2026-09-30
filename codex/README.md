@@ -58,6 +58,8 @@ or with with yolo mode if you know what you're doing:
 
 ```sh
 codex --yolo
+# or use the short alias in an interactive Bash shell
+co
 ```
 
 References:

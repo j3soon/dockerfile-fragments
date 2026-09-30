@@ -24,3 +24,4 @@ RUN npm install -g @openai/codex
 RUN codex_version="$(codex --version)" \
     && test -n "$codex_version" \
     && echo "Installed Codex CLI: $codex_version"
+RUN echo 'alias co="codex --yolo"' >> /root/.bashrc
